@@ -1,8 +1,6 @@
 # angular-6-login-signup-example
 Sample project with angular 6 login and signup
 
-# Abc
-
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.0.
 
 ## Development server
