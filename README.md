@@ -13,6 +13,12 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
+## Backend - Server 
+
+Backend Server : http://localhost:3000
+
+Repo Url : https://github.com/jdamilasp/node-express-mongo-backend-with-Api-Doc
+
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
