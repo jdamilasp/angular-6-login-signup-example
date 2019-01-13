@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { LoginService } from '../_services/login.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,13 +17,14 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private loginService: LoginService
   ) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required]
+      email: ['john@gmail.com', Validators.required],
+      password: ['123456', Validators.required]
     });
   }
 
@@ -37,11 +40,20 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
+    let loginObj = { 
+      email : this.f.email.value, 
+      password: this.f.password.value
+    };
+    this.loginService.login(loginObj).subscribe(      
+      (data) => {
+        console.log(" Response ", data);
 
-    // This is TODO : Code 
-    setTimeout(() => {
-      this.router.navigate(["/signup"])
-    },3000)
+        this.router.navigate(["/dashboard"])
+      },(err: any) => {
+        console.log(" Error ", err);
+        
+        this.loading = false;
+      })
   } 
 
 }

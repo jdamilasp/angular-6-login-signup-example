@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SignupService } from '../_services/signup.service';
 
 @Component({
   selector: 'app-signup',
@@ -15,14 +16,15 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private signupService: SignupService
   ) { }
 
   ngOnInit() {
     this.singupForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      email: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      firstName: ['john', Validators.required],
+      email: ['john@gmail.com', Validators.required],
+      password: ['123456', [Validators.required, Validators.minLength(6)]]
     });
   }
 
@@ -38,10 +40,22 @@ export class SignupComponent implements OnInit {
 
     this.loading = true;
 
-    // This is TODO : Code 
-    setTimeout( () => {
-      this.router.navigate(["/login"])
-    },3000)
+    this.loading = true;
+    let loginObj = {
+      firstName: this.f.firstName.value, 
+      email : this.f.email.value, 
+      password: this.f.password.value
+    }
+    this.signupService.signup(loginObj).subscribe(      
+      (data) => {
+        console.log(" Response ", data);
+
+        this.router.navigate(["/dashboard"])
+      },(err: any) => {
+        console.log(" Error ", err);
+
+        this.loading = false;
+      })
 
   }
 
